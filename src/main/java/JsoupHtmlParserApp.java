@@ -1,7 +1,6 @@
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
 
 import java.io.BufferedWriter;
@@ -35,7 +34,7 @@ public class JsoupHtmlParserApp {
 
         Document episode = Jsoup.connect(url).get();
         String currentEpisodeName = episode.select(EPISODE_NAME).get(0).text().substring(6);
-        String episodePlainText = Jsoup.clean(episode.select(EPISODE_CONTAINER).toString(), Whitelist.basic());
+        String episodePlainText = episode.select(EPISODE_CONTAINER).get(0).text();
         String currentEpisodeNumber = url.substring(url.length() - 6);
 
         writeStringToFile(currentEpisodeNumber, currentEpisodeName, episodePlainText);
