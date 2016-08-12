@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class JsonHtmlParserApp {
+public class JsoupHtmlParserApp {
 
     static String BASE_URL = "http://www.springfieldspringfield.co.uk/";
     static String PAGE_URL_WITH_ALL_EPISODES = "episode_scripts.php?tv-show=the-simpsons";
@@ -35,8 +35,7 @@ public class JsonHtmlParserApp {
 
         Document episode = Jsoup.connect(url).get();
         String currentEpisodeName = episode.select(EPISODE_NAME).get(0).text().substring(6);
-        Elements episodeScript = episode.select(EPISODE_CONTAINER);
-        String episodePlainText = Jsoup.clean(episodeScript.toString(), Whitelist.basic());
+        String episodePlainText = Jsoup.clean(episode.select(EPISODE_CONTAINER).toString(), Whitelist.basic());
         String currentEpisodeNumber = url.substring(url.length() - 6);
 
         writeStringToFile(currentEpisodeNumber, currentEpisodeName, episodePlainText);
