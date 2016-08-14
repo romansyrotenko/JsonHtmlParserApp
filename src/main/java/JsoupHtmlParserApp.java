@@ -45,6 +45,15 @@ public class JsoupHtmlParserApp {
 
         BufferedWriter outputFile = null;
 
+        if (episodeName.contains("?")) {
+            String episodeName2 = episodeName.replace("?", "");
+            episodeName = episodeName2;
+        }
+
+        if (plainText.isEmpty()) {
+            return;
+        }
+
         try {
             File file = new File(episodeNumber + " - " + episodeName + ".txt");
             outputFile = new BufferedWriter(new FileWriter(file));
